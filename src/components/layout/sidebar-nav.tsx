@@ -42,38 +42,40 @@ export function SidebarNav() {
           const Icon = item.icon;
           return (
             <SidebarMenuItem key={item.href}>
-              <Link href={item.href} passHref legacyBehavior>
-                <SidebarMenuButton
-                  isActive={pathname === item.href}
-                  tooltip={{
-                    children: item.label,
-                    side: 'right',
-                    align: 'center',
-                  }}
-                >
+              <SidebarMenuButton
+                asChild
+                isActive={pathname === item.href}
+                tooltip={{
+                  children: item.label,
+                  side: 'right',
+                  align: 'center',
+                }}
+              >
+                <Link href={item.href}>
                   <Icon className="h-5 w-5" />
                   <span>{item.label}</span>
-                </SidebarMenuButton>
-              </Link>
+                </Link>
+              </SidebarMenuButton>
             </SidebarMenuItem>
           );
         })}
       </SidebarMenu>
       <SidebarMenu className="p-2">
         <SidebarMenuItem>
-          <Link href={settingsNav.href} passHref legacyBehavior>
-            <SidebarMenuButton
-              isActive={pathname === settingsNav.href}
-              tooltip={{
-                children: settingsNav.label,
-                side: 'right',
-                align: 'center',
-              }}
-            >
+          <SidebarMenuButton
+            asChild
+            isActive={pathname === settingsNav.href}
+            tooltip={{
+              children: settingsNav.label,
+              side: 'right',
+              align: 'center',
+            }}
+          >
+            <Link href={settingsNav.href}>
               <Settings className="h-5 w-5" />
               <span>{settingsNav.label}</span>
-            </SidebarMenuButton>
-          </Link>
+            </Link>
+          </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
     </div>
