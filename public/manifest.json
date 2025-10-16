@@ -1,0 +1,21 @@
+{
+  "name": "MindSpark",
+  "short_name": "MindSpark",
+  "description": "Your offline AI co-creator powered by Gemini Nano.",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#E0E0E0",
+  "theme_color": "#7DF9FF",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
