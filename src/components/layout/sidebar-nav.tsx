@@ -42,40 +42,38 @@ export function SidebarNav() {
           const Icon = item.icon;
           return (
             <SidebarMenuItem key={item.href}>
-              <SidebarMenuButton
-                asChild
-                isActive={pathname === item.href}
-                tooltip={{
-                  children: item.label,
-                  side: 'right',
-                  align: 'center',
-                }}
-              >
-                <Link href={item.href}>
+              <Link href={item.href}>
+                <SidebarMenuButton
+                  isActive={pathname === item.href}
+                  tooltip={{
+                    children: item.label,
+                    side: 'right',
+                    align: 'center',
+                  }}
+                >
                   <Icon className="h-5 w-5" />
                   <span>{item.label}</span>
-                </Link>
-              </SidebarMenuButton>
+                </SidebarMenuButton>
+              </Link>
             </SidebarMenuItem>
           );
         })}
       </SidebarMenu>
       <SidebarMenu className="p-2">
         <SidebarMenuItem>
-          <SidebarMenuButton
-            asChild
-            isActive={pathname === settingsNav.href}
-            tooltip={{
-              children: settingsNav.label,
-              side: 'right',
-              align: 'center',
-            }}
-          >
-            <Link href={settingsNav.href}>
+          <Link href={settingsNav.href}>
+            <SidebarMenuButton
+              isActive={pathname === settingsNav.href}
+              tooltip={{
+                children: settingsNav.label,
+                side: 'right',
+                align: 'center',
+              }}
+            >
               <Settings className="h-5 w-5" />
               <span>{settingsNav.label}</span>
-            </Link>
-          </SidebarMenuButton>
+            </SidebarMenuButton>
+          </Link>
         </SidebarMenuItem>
       </SidebarMenu>
     </div>
