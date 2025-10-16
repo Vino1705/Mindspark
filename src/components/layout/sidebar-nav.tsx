@@ -42,9 +42,8 @@ export function SidebarNav() {
           const Icon = item.icon;
           return (
             <SidebarMenuItem key={item.href}>
-              <Link href={item.href} passHref>
+              <Link href={item.href}>
                 <SidebarMenuButton
-                  asChild
                   isActive={pathname === item.href}
                   tooltip={{
                     children: item.label,
@@ -52,10 +51,8 @@ export function SidebarNav() {
                     align: 'center',
                   }}
                 >
-                  <div>
-                    <Icon className="h-5 w-5" />
-                    <span>{item.label}</span>
-                  </div>
+                  <Icon className="h-5 w-5" />
+                  <span>{item.label}</span>
                 </SidebarMenuButton>
               </Link>
             </SidebarMenuItem>
@@ -64,9 +61,8 @@ export function SidebarNav() {
       </SidebarMenu>
       <SidebarMenu className="p-2">
         <SidebarMenuItem>
-          <Link href={settingsNav.href} passHref>
+          <Link href={settingsNav.href}>
             <SidebarMenuButton
-              asChild
               isActive={pathname === settingsNav.href}
               tooltip={{
                 children: settingsNav.label,
@@ -74,10 +70,8 @@ export function SidebarNav() {
                 align: 'center',
               }}
             >
-              <div>
-                <Settings className="h-5 w-5" />
-                <span>{settingsNav.label}</span>
-              </div>
+              <Settings className="h-5 w-5" />
+              <span>{settingsNav.label}</span>
             </SidebarMenuButton>
           </Link>
         </SidebarMenuItem>
