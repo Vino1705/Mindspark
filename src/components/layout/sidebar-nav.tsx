@@ -42,7 +42,7 @@ export function SidebarNav() {
           const Icon = item.icon;
           return (
             <SidebarMenuItem key={item.href}>
-              <Link href={item.href} legacyBehavior passHref>
+              <Link href={item.href} passHref>
                 <SidebarMenuButton
                   asChild
                   isActive={pathname === item.href}
@@ -52,10 +52,10 @@ export function SidebarNav() {
                     align: 'center',
                   }}
                 >
-                  <a href={item.href}>
+                  <div>
                     <Icon className="h-5 w-5" />
                     <span>{item.label}</span>
-                  </a>
+                  </div>
                 </SidebarMenuButton>
               </Link>
             </SidebarMenuItem>
@@ -64,7 +64,7 @@ export function SidebarNav() {
       </SidebarMenu>
       <SidebarMenu className="p-2">
         <SidebarMenuItem>
-          <Link href={settingsNav.href} legacyBehavior passHref>
+          <Link href={settingsNav.href} passHref>
             <SidebarMenuButton
               asChild
               isActive={pathname === settingsNav.href}
@@ -74,10 +74,10 @@ export function SidebarNav() {
                 align: 'center',
               }}
             >
-              <a href={settingsNav.href}>
+              <div>
                 <Settings className="h-5 w-5" />
                 <span>{settingsNav.label}</span>
-              </a>
+              </div>
             </SidebarMenuButton>
           </Link>
         </SidebarMenuItem>
