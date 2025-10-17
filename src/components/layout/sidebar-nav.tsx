@@ -42,9 +42,8 @@ export function SidebarNav() {
           const Icon = item.icon;
           return (
             <SidebarMenuItem key={item.href}>
-              <Link href={item.href} passHref legacyBehavior>
+              <Link href={item.href}>
                 <SidebarMenuButton
-                  as="a"
                   isActive={pathname === item.href}
                   tooltip={{
                     children: item.label,
@@ -60,8 +59,8 @@ export function SidebarNav() {
       </SidebarMenu>
       <SidebarMenu className="p-2">
         <SidebarMenuItem>
-          <Link href={settingsNav.href} passHref legacyBehavior>
-            <SidebarMenuButton as="a" isActive={pathname === settingsNav.href}>
+          <Link href={settingsNav.href}>
+            <SidebarMenuButton isActive={pathname === settingsNav.href}>
               <Settings className="h-5 w-5" />
               <span>{settingsNav.label}</span>
             </SidebarMenuButton>
