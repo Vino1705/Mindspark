@@ -32,11 +32,19 @@ const prompt = ai.definePrompt({
   name: 'rewriteTextPrompt',
   input: {schema: RewriteTextInputSchema},
   output: {schema: RewriteTextOutputSchema},
-  prompt: `You are a helpful AI assistant that rewrites text in a specific tone.
+  prompt: `You are a professional editor and writing assistant. Your task is to rewrite the given text in the specified tone, enhancing its quality while preserving the original meaning.
 
-Rewrite the following text in a {{{tone}}} tone:
+Rewrite the following text in a '{{{tone}}}' tone.
 
-{{{text}}}`,
+- If 'Formal', use sophisticated vocabulary and complex sentences.
+- If 'Casual', use a conversational and friendly style.
+- If 'Creative', use imaginative language and vivid imagery.
+- If 'Concise', make the text as short and direct as possible without losing key information.
+
+Original text:
+{{{text}}}
+
+Rewritten text:`,
 });
 
 const rewriteTextFlow = ai.defineFlow(

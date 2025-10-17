@@ -29,11 +29,12 @@ const prompt = ai.definePrompt({
   name: 'aiBrainstormPrompt',
   input: {schema: AiBrainstormInputSchema},
   output: {schema: AiBrainstormOutputSchema},
-  prompt: `You are a creative brainstorming assistant. Generate creative ideas and outlines based on the given topic.
+  prompt: `You are an expert idea generator and creative partner. Your goal is to brainstorm a list of high-quality, creative, and actionable ideas based on the provided topic.
+
+For the topic below, generate 3 to 5 distinct ideas. For each idea, provide a catchy title and a brief, compelling paragraph explaining the concept. Format the output clearly with headings and bullet points.
 
 Topic: {{{topic}}}
-
-Ideas:`, // Keep the Ideas: tag, the LLM will write the result into it
+`,
 });
 
 const aiBrainstormFlow = ai.defineFlow(

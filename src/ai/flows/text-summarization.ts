@@ -29,7 +29,11 @@ const prompt = ai.definePrompt({
   name: 'summarizeTextPrompt',
   input: {schema: SummarizeTextInputSchema},
   output: {schema: SummarizeTextOutputSchema},
-  prompt: `Summarize the following text:\n\n{{text}}`,
+  prompt: `You are an expert summarizer. Your task is to read the following text and create a concise, clear, and accurate summary. The summary should capture the main ideas, key points, and essential information while omitting unnecessary details.
+
+Summarize the following text:
+
+{{{text}}}`,
 });
 
 const summarizeTextFlow = ai.defineFlow(

@@ -6,7 +6,7 @@ import {Input} from '@/components/ui/input';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {Skeleton} from '@/components/ui/skeleton';
 import {useOffline} from '@/hooks/use-offline';
-import {rewriteText, type RewriteTextInput} from '@/ai/flows/text-rewriting';
+import {aiBrainstorm, type AiBrainstormInput} from '@/ai/ai-brainstorm';
 import {TypingAnimation} from '@/components/typing-animation';
 import {CopyButton} from '@/components/copy-button';
 import {useToast} from '@/hooks/use-toast';
@@ -14,14 +14,18 @@ import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
 import {Info, Save, Sparkles} from 'lucide-react';
 import {addDraft} from '@/lib/db';
 
-async function mockBrainstorm(topic: string): Promise<string> {
+async function mockBrainstorm(topic: string): Promise<string[]> {
   await new Promise(resolve => setTimeout(resolve, 1000));
-  return `Here are some creative ideas for "${topic}":\n\n- Idea 1: A completely novel concept based on your topic.\n- Idea 2: A twist on a classic theme related to your idea.\n- Idea 3: An unexpected combination of genres inspired by your input.`;
+  return [
+    `Idea 1 for "${topic}": A completely novel concept.`,
+    `Idea 2 for "${topic}": A twist on a classic theme.`,
+    `Idea 3 for "${topic}": An unexpected combination.`,
+  ];
 }
 
 export default function BrainstormPage() {
   const [topic, setTopic] = useState('');
-  const [ideas, setIdeas] = useState('');
+  const [ideas, setIdeas] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const isOffline = useOffline();
   const {toast} = useToast();
@@ -36,7 +40,7 @@ export default function BrainstormPage() {
       return;
     }
     setIsLoading(true);
-    setIdeas('');
+    setIdeas([]);
 
     try {
       let result;
@@ -47,13 +51,11 @@ export default function BrainstormPage() {
           description: 'Showing mock AI data.',
         });
       } else {
-        const prompt = `You are an expert idea generator. Brainstorm a list of creative ideas and outlines for the following topic: ${topic}. Format the output clearly with headings and bullet points.`;
-        const input: RewriteTextInput = {
-          text: prompt,
-          tone: 'Creative',
+        const input: AiBrainstormInput = {
+          topic,
         };
-        const response = await rewriteText(input);
-        result = response.rewrittenText;
+        const response = await aiBrainstorm(input);
+        result = response.ideas;
       }
       setIdeas(result);
     } catch (error) {
@@ -69,11 +71,12 @@ export default function BrainstormPage() {
   };
 
   const handleSaveDraft = async () => {
-    if (!ideas) return;
+    if (ideas.length === 0) return;
     try {
+      const content = ideas.join('\n\n');
       await addDraft({
         title: `Brainstorm: ${topic.substring(0, 30)}...`,
-        content: ideas,
+        content: content,
       });
       toast({title: 'Draft saved successfully!'});
     } catch (error) {
@@ -81,6 +84,8 @@ export default function BrainstormPage() {
       toast({variant: 'destructive', title: 'Error saving draft.'});
     }
   };
+
+  const ideasText = ideas.join('\n\n');
 
   return (
     <div className="space-y-6">
@@ -120,16 +125,16 @@ export default function BrainstormPage() {
         </CardContent>
       </Card>
 
-      {(isLoading || ideas) && (
+      {(isLoading || ideas.length > 0) && (
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Generated Ideas</CardTitle>
-            {ideas && !isLoading && (
+            {ideas.length > 0 && !isLoading && (
               <div className="flex items-center gap-2">
                 <Button variant="outline" size="sm" onClick={handleSaveDraft}>
                   <Save className="mr-2 h-4 w-4" /> Save Draft
                 </Button>
-                <CopyButton text={ideas} />
+                <CopyButton text={ideasText} />
               </div>
             )}
           </CardHeader>
@@ -143,7 +148,7 @@ export default function BrainstormPage() {
               </div>
             ) : (
               <TypingAnimation
-                text={ideas}
+                text={ideasText}
                 className="whitespace-pre-wrap text-sm"
               />
             )}
