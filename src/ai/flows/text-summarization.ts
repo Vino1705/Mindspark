@@ -17,7 +17,7 @@ const SummarizeTextInputSchema = z.object({
 export type SummarizeTextInput = z.infer<typeof SummarizeTextInputSchema>;
 
 const SummarizeTextOutputSchema = z.object({
-  summary: z.string().describe('The summarized text.'),
+  summary: z.string().describe('The summarized text, including key takeaways and main arguments.'),
 });
 export type SummarizeTextOutput = z.infer<typeof SummarizeTextOutputSchema>;
 
@@ -29,7 +29,12 @@ const prompt = ai.definePrompt({
   name: 'summarizeTextPrompt',
   input: {schema: SummarizeTextInputSchema},
   output: {schema: SummarizeTextOutputSchema},
-  prompt: `You are an expert summarizer. Your task is to read the following text and create a concise, clear, and accurate summary. The summary should capture the main ideas, key points, and essential information while omitting unnecessary details.
+  prompt: `You are an expert analyst and researcher. Your task is to provide a comprehensive summary of the following text. The summary should be structured and highly informative.
+
+Please provide the following:
+1.  **Main Summary:** A concise paragraph that captures the core message and essential information of the text.
+2.  **Key Takeaways:** A bulleted list of the 3-5 most important points or conclusions.
+3.  **Actionable Insights:** If applicable, a brief description of any actions or decisions that can be made based on this information.
 
 Summarize the following text:
 
