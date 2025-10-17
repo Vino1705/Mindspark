@@ -30,14 +30,12 @@ export default function AppLayout({children}: {children: ReactNode}) {
     <SidebarProvider>
       <Sidebar>
         <div className="flex h-full flex-col">
-          <Link href="/dashboard">
-            <div className="flex h-16 items-center gap-3 p-4">
-              <Sparkles className="size-8 text-ring" />
-              <h2 className="text-2xl font-bold group-data-[collapsible=icon]:hidden">
-                ContentSpark
-              </h2>
-            </div>
-          </Link>
+          <div className="flex h-16 items-center gap-3 p-4">
+            <Sparkles className="size-8 text-ring" />
+            <h2 className="text-2xl font-bold group-data-[collapsible=icon]:hidden">
+              ContentSpark
+            </h2>
+          </div>
           <SidebarNav />
         </div>
       </Sidebar>
