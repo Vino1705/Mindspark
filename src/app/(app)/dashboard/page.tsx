@@ -7,53 +7,63 @@ import {
   BookText,
   Save,
   Settings,
+  PlusCircle,
 } from 'lucide-react';
 
 const tools = [
   {
     href: '/brainstorm',
     icon: Brain,
-    label: 'Brainstorm',
-    description: 'Generate creative ideas and outlines.',
+    label: 'Blog Idea Generator',
+    description: 'Brainstorm compelling topics and outlines for your next blog post.',
   },
   {
     href: '/rewriter',
     icon: Feather,
-    label: 'Rewriter',
-    description: 'Rewrite text with different tones.',
+    label: 'Tone Adjuster',
+    description: 'Rewrite your content to match the perfect tone for your audience.',
   },
   {
     href: '/proofreader',
     icon: FileCheck,
     label: 'Proofreader',
-    description: 'Check for grammar and spelling errors.',
+    description: 'Polish your writing by catching grammar and spelling errors.',
   },
   {
     href: '/summarizer',
     icon: BookText,
     label: 'Summarizer',
-    description: 'Condense long text into key points.',
+    description: 'Condense articles and research into key takeaways instantly.',
   },
 ];
 
 export default function DashboardPage() {
   return (
-    <div className="flex flex-col items-center justify-center space-y-8">
-      <div className="text-center">
+    <div className="flex flex-col space-y-8">
+      <div className="text-left">
         <h1 className="text-4xl font-bold tracking-tight">
-          Welcome to MindSpark
+          Welcome to ContentSpark
         </h1>
         <p className="mt-2 text-lg text-muted-foreground">
-          Your offline AI co-creator. Select a tool to get started.
+          Your AI partner for creating exceptional marketing content.
         </p>
       </div>
 
-      <div className="grid w-full max-w-4xl grid-cols-1 gap-6 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <Link href="/brainstorm">
+          <div className="glow-effect flex h-full min-h-[200px] flex-col items-center justify-center rounded-lg border-2 border-dashed border-primary/50 bg-card p-6 text-card-foreground shadow-sm transition-all hover:-translate-y-1 hover:border-primary hover:shadow-primary/20">
+            <PlusCircle className="mb-4 size-10 text-primary" />
+            <h2 className="text-xl font-semibold">Create New Content</h2>
+            <p className="mt-1 text-center text-sm text-muted-foreground">
+              Start with a fresh idea.
+            </p>
+          </div>
+        </Link>
         {tools.map(tool => {
           const Icon = tool.icon;
           return (
-            <Link href={tool.href} key={tool.href} className="glow-effect">
-              <div className="flex h-full flex-col items-start justify-between rounded-lg border bg-card p-6 text-card-foreground shadow-sm transition-all hover:-translate-y-1 hover:shadow-primary/20">
+            <Link href={tool.href} key={tool.href}>
+              <div className="flex h-full min-h-[200px] flex-col items-start justify-between rounded-lg border bg-card p-6 text-card-foreground shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
                 <div>
                   <div className="mb-4 flex items-center gap-3">
                     <div className="rounded-lg bg-primary/10 p-2">

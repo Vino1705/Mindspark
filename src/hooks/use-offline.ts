@@ -20,11 +20,11 @@ export function useOffline() {
       setIsOffline(!navigator.onLine);
     }
 
-    const demoMode = localStorage.getItem('mindspark-demo-mode') === 'true';
+    const demoMode = localStorage.getItem('contentspark-demo-mode') === 'true';
     setIsDemoMode(demoMode);
 
     const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'mindspark-demo-mode') {
+      if (e.key === 'contentspark-demo-mode') {
         setIsDemoMode(e.newValue === 'true');
       }
     };

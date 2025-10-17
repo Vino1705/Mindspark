@@ -33,13 +33,13 @@ export default function SettingsPage() {
 
   useEffect(() => {
     setIsMounted(true);
-    const demoMode = localStorage.getItem('mindspark-demo-mode') === 'true';
+    const demoMode = localStorage.getItem('contentspark-demo-mode') === 'true';
     setIsDemoMode(demoMode);
   }, []);
 
   const handleDemoModeToggle = (checked: boolean) => {
     setIsDemoMode(checked);
-    localStorage.setItem('mindspark-demo-mode', String(checked));
+    localStorage.setItem('contentspark-demo-mode', String(checked));
     toast({
       title: 'Demo Mode Updated',
       description: `Offline demo mode has been ${
@@ -53,8 +53,8 @@ export default function SettingsPage() {
   const handleClearData = async () => {
     try {
       await deleteAllDrafts();
-      localStorage.removeItem('mindspark-demo-mode');
-      localStorage.removeItem('mindspark-theme');
+      localStorage.removeItem('contentspark-demo-mode');
+      localStorage.removeItem('contentspark-theme');
       setIsDemoMode(false);
       toast({
         title: 'Data Cleared',
@@ -144,12 +144,12 @@ export default function SettingsPage() {
       </Card>
       <Card>
         <CardHeader>
-          <CardTitle>About MindSpark</CardTitle>
+          <CardTitle>About ContentSpark</CardTitle>
         </CardHeader>
         <CardContent className="text-sm text-muted-foreground">
           <p>Version 1.0.0</p>
-          <p>Your offline AI co-creator powered by Gemini Nano.</p>
-          <p>Made with ❤️ by the MindSpark Team.</p>
+          <p>Your AI partner for creating exceptional marketing content.</p>
+          <p>Made with ❤️ by the ContentSpark Team.</p>
         </CardContent>
       </Card>
     </div>

@@ -14,8 +14,8 @@ import Link from 'next/link';
 
 const pageTitles: {[key: string]: string} = {
   '/dashboard': 'Dashboard',
-  '/brainstorm': 'Brainstorm',
-  '/rewriter': 'Rewriter',
+  '/brainstorm': 'Blog Idea Generator',
+  '/rewriter': 'Tone Adjuster',
   '/proofreader': 'Proofreader',
   '/summarizer': 'Summarizer',
   '/drafts': 'My Drafts',
@@ -24,7 +24,7 @@ const pageTitles: {[key: string]: string} = {
 
 export default function AppLayout({children}: {children: ReactNode}) {
   const pathname = usePathname();
-  const title = pageTitles[pathname] || 'MindSpark';
+  const title = pageTitles[pathname] || 'ContentSpark';
 
   return (
     <SidebarProvider>
@@ -34,7 +34,7 @@ export default function AppLayout({children}: {children: ReactNode}) {
             <div className="flex h-16 items-center gap-3 p-4">
               <Sparkles className="size-8 text-ring" />
               <h2 className="text-2xl font-bold group-data-[collapsible=icon]:hidden">
-                MindSpark
+                ContentSpark
               </h2>
             </div>
           </Link>
@@ -49,7 +49,7 @@ export default function AppLayout({children}: {children: ReactNode}) {
           </header>
           <main className="flex-1 p-4 lg:p-6">{children}</main>
           <footer className="border-t py-4 text-center text-sm text-muted-foreground">
-            Powered by Gemini Nano. Made with ❤️ by MindSpark Team.
+            Powered by Gemini. Made with ❤️ by the ContentSpark Team.
           </footer>
         </div>
       </SidebarInset>

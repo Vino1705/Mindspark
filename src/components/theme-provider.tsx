@@ -22,7 +22,7 @@ type ThemeProviderState = {
 };
 
 const initialState: ThemeProviderState = {
-  theme: 'light',
+  theme: 'dark',
   setTheme: () => null,
 };
 
@@ -31,8 +31,8 @@ const ThemeProviderContext =
 
 export function ThemeProvider({
   children,
-  defaultTheme = 'light',
-  storageKey = 'mindspark-theme',
+  defaultTheme = 'dark',
+  storageKey = 'contentspark-theme',
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(defaultTheme);
 

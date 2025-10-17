@@ -19,8 +19,8 @@ import {
 
 const navItems = [
   {href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard'},
-  {href: '/brainstorm', icon: Brain, label: 'Brainstorm'},
-  {href: '/rewriter', icon: Feather, label: 'Rewriter'},
+  {href: '/brainstorm', icon: Brain, label: 'Blog Idea Generator'},
+  {href: '/rewriter', icon: Feather, label: 'Tone Adjuster'},
   {href: '/proofreader', icon: FileCheck, label: 'Proofreader'},
   {href: '/summarizer', icon: BookText, label: 'Summarizer'},
   {href: '/drafts', icon: Save, label: 'Drafts'},
@@ -42,8 +42,9 @@ export function SidebarNav() {
           const Icon = item.icon;
           return (
             <SidebarMenuItem key={item.href}>
-              <Link href={item.href}>
+              <Link href={item.href} legacyBehavior passHref>
                 <SidebarMenuButton
+                  as="a"
                   isActive={pathname === item.href}
                   tooltip={{
                     children: item.label,
@@ -61,8 +62,9 @@ export function SidebarNav() {
       </SidebarMenu>
       <SidebarMenu className="p-2">
         <SidebarMenuItem>
-          <Link href={settingsNav.href}>
+          <Link href={settingsNav.href} legacyBehavior passHref>
             <SidebarMenuButton
+              as="a"
               isActive={pathname === settingsNav.href}
               tooltip={{
                 children: settingsNav.label,

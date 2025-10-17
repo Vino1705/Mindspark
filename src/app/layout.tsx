@@ -5,8 +5,8 @@ import {Toaster} from '@/components/ui/toaster';
 import {cn} from '@/lib/utils';
 
 export const metadata: Metadata = {
-  title: 'MindSpark',
-  description: 'Your offline AI co-creator powered by Gemini Nano.',
+  title: 'ContentSpark',
+  description: 'Your AI partner for marketing content creation.',
   manifest: '/manifest.json',
 };
 
@@ -30,7 +30,7 @@ export default function RootLayout({
         />
       </head>
       <body className={cn('font-body antialiased')}>
-        <ThemeProvider defaultTheme="light" storageKey="mindspark-theme">
+        <ThemeProvider defaultTheme="dark" storageKey="contentspark-theme">
           {children}
           <Toaster />
         </ThemeProvider>
