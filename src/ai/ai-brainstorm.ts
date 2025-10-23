@@ -9,6 +9,7 @@
  */
 
 import {ai} from '@/ai/genkit';
+import {googleAI} from '@genkit-ai/google-genai';
 import {z} from 'genkit';
 
 const AiBrainstormInputSchema = z.object({
@@ -27,6 +28,7 @@ export async function aiBrainstorm(input: AiBrainstormInput): Promise<AiBrainsto
 
 const prompt = ai.definePrompt({
   name: 'aiBrainstormPrompt',
+  model: googleAI.model('gemini-2.5-flash'),
   input: {schema: AiBrainstormInputSchema},
   output: {schema: AiBrainstormOutputSchema},
   prompt: `You are an expert Content Strategist and SEO specialist. Your goal is to generate compelling blog post ideas based on a given topic.
