@@ -1,6 +1,6 @@
 # ContentSpark
 
-This is a Next.js application, built in Firebase Studio, that acts as an AI-powered content creation assistant. It's designed to help marketers, writers, and content creators streamline their workflow from idea to publication.
+This is a Next.js application that acts as an AI-powered content creation assistant. It's designed to help marketers, writers, and content creators streamline their workflow from idea to publication.
 
 ## About The Project
 
