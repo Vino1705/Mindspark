@@ -50,12 +50,12 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <Link href="/brainstorm">
+        <Link href="/writer">
           <div className="glow-effect flex h-full min-h-[200px] flex-col items-center justify-center rounded-lg border-2 border-dashed border-primary/50 bg-card p-6 text-card-foreground shadow-sm transition-all hover:-translate-y-1 hover:border-primary hover:shadow-primary/20">
             <PlusCircle className="mb-4 size-10 text-primary" />
             <h2 className="text-xl font-semibold">Create New Content</h2>
             <p className="mt-1 text-center text-sm text-muted-foreground">
-              Start with a fresh idea.
+              Start with a blank canvas.
             </p>
           </div>
         </Link>

@@ -1,6 +1,6 @@
 'use client';
 
-import {useState, useRef} from 'react';
+import {useState, useRef, useEffect} from 'react';
 import {Button} from '@/components/ui/button';
 import {Textarea} from '@/components/ui/textarea';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
@@ -17,6 +17,7 @@ import {useToast} from '@/hooks/use-toast';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
 import {BookText, Info, Save, Upload} from 'lucide-react';
 import {addDraft} from '@/lib/db';
+import {useDraftStore} from '@/lib/draft-store';
 
 async function mockSummarize(text: string): Promise<SummarizeTextOutput> {
   await new Promise(resolve => setTimeout(resolve, 1000));
@@ -31,6 +32,18 @@ export default function SummarizerPage() {
   const isOffline = useOffline();
   const {toast} = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const {consumeDraftContent} = useDraftStore();
+
+  useEffect(() => {
+    const draftContent = consumeDraftContent();
+    if (draftContent) {
+      setText(draftContent);
+      toast({
+        title: 'Draft Loaded',
+        description: 'Draft content loaded and ready to be summarized.',
+      });
+    }
+  }, [consumeDraftContent, toast]);
 
   const handleSummarize = async () => {
     if (!text) {

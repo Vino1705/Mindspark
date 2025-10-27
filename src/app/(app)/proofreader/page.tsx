@@ -1,6 +1,6 @@
 'use client';
 
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {Button} from '@/components/ui/button';
 import {Textarea} from '@/components/ui/textarea';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
@@ -17,6 +17,7 @@ import {FileCheck2, Info, Save} from 'lucide-react';
 import {CopyButton} from '@/components/copy-button';
 import {addDraft} from '@/lib/db';
 import {Separator} from '@/components/ui/separator';
+import {useDraftStore} from '@/lib/draft-store';
 
 async function mockProofread(text: string): Promise<ProofreadTextOutput> {
   await new Promise(resolve => setTimeout(resolve, 1000));
@@ -50,6 +51,18 @@ export default function ProofreaderPage() {
   const [isLoading, setIsLoading] = useState(false);
   const isOffline = useOffline();
   const {toast} = useToast();
+  const {consumeDraftContent} = useDraftStore();
+
+  useEffect(() => {
+    const draftContent = consumeDraftContent();
+    if (draftContent) {
+      setText(draftContent);
+      toast({
+        title: 'Draft Loaded',
+        description: 'Draft content loaded and ready to be proofread.',
+      });
+    }
+  }, [consumeDraftContent, toast]);
 
   const handleProofread = async () => {
     if (!text) {

@@ -14,10 +14,12 @@ import Link from 'next/link';
 
 const pageTitles: {[key: string]: string} = {
   '/dashboard': 'Dashboard',
+  '/writer': 'Content Writer',
   '/brainstorm': 'Blog Idea Generator',
   '/rewriter': 'Tone Adjuster',
   '/proofreader': 'Proofreader',
   '/summarizer': 'Summarizer',
+  '/social': 'Social Media Post Generator',
   '/drafts': 'My Drafts',
   '/settings': 'Settings',
 };

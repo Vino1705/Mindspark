@@ -10,16 +10,20 @@ import {
   Save,
   Settings,
   LayoutDashboard,
+  FileEdit,
+  ThumbsUp,
 } from 'lucide-react';
 import { SidebarMenu, SidebarMenuItem } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
 
 const navItems = [
   { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+  { href: '/writer', icon: FileEdit, label: 'Content Writer' },
   { href: '/brainstorm', icon: Brain, label: 'Blog Idea Generator' },
   { href: '/rewriter', icon: Feather, label: 'Tone Adjuster' },
   { href: '/proofreader', icon: FileCheck, label: 'Proofreader' },
   { href: '/summarizer', icon: BookText, label: 'Summarizer' },
+  { href: '/social', icon: ThumbsUp, label: 'Social Post Generator'},
   { href: '/drafts', icon: Save, label: 'Drafts' },
 ];
 
