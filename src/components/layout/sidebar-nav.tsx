@@ -11,6 +11,7 @@ import {
   Settings,
   LayoutDashboard,
   FileEdit,
+  ThumbsUp,
 } from 'lucide-react';
 import { SidebarMenu, SidebarMenuItem } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
@@ -22,6 +23,7 @@ const navItems = [
   { href: '/rewriter', icon: Feather, label: 'Tone Adjuster' },
   { href: '/proofreader', icon: FileCheck, label: 'Proofreader' },
   { href: '/summarizer', icon: BookText, label: 'Summarizer' },
+  { href: '/social', icon: ThumbsUp, label: 'Social Post Generator'},
   { href: '/drafts', icon: Save, label: 'Drafts' },
 ];
 

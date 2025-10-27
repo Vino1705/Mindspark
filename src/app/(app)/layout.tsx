@@ -19,6 +19,7 @@ const pageTitles: {[key: string]: string} = {
   '/rewriter': 'Tone Adjuster',
   '/proofreader': 'Proofreader',
   '/summarizer': 'Summarizer',
+  '/social': 'Social Media Post Generator',
   '/drafts': 'My Drafts',
   '/settings': 'Settings',
 };

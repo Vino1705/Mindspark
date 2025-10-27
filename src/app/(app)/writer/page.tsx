@@ -14,10 +14,12 @@ import {
 import {useToast} from '@/hooks/use-toast';
 import {useDraftStore} from '@/lib/draft-store';
 import {addDraft} from '@/lib/db';
-import {BookText, Feather, FileCheck, Save} from 'lucide-react';
+import {BookText, Feather, FileCheck, Save, Sparkles} from 'lucide-react';
+import {expandContent, type ExpandContentInput} from '@/ai/flows/content-expander';
 
 export default function WriterPage() {
   const [content, setContent] = useState('');
+  const [isExpanding, setIsExpanding] = useState(false);
   const router = useRouter();
   const {setDraftContent} = useDraftStore();
   const {toast} = useToast();
@@ -49,6 +51,32 @@ export default function WriterPage() {
     }
   };
 
+  const handleExpand = async () => {
+    if (!content) {
+      toast({
+        variant: 'destructive',
+        title: 'Content is empty',
+        description: 'Please enter some text to expand.',
+      });
+      return;
+    }
+    setIsExpanding(true);
+    try {
+      const input: ExpandContentInput = {text: content};
+      const result = await expandContent(input);
+      setContent(result.expandedContent);
+    } catch (error) {
+      console.error('Content expansion failed:', error);
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Failed to expand content. Please try again.',
+      });
+    } finally {
+      setIsExpanding(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <Card className="h-full">
@@ -65,31 +93,38 @@ export default function WriterPage() {
             onChange={e => setContent(e.target.value)}
             placeholder="Start writing your next masterpiece..."
             className="min-h-[400px] flex-1 text-base"
+            disabled={isExpanding}
           />
           <div className="flex flex-wrap items-center gap-2">
             <Button
               variant="outline"
-              onClick={() => handleMove('/rewriter')}
+              onClick={handleExpand}
+              disabled={isExpanding}
               className="glow-effect"
+            >
+              <Sparkles className="mr-2 h-4 w-4" />
+              {isExpanding ? 'Expanding...' : 'Expand Content'}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => handleMove('/rewriter')}
             >
               <Feather className="mr-2 h-4 w-4" /> Move to Rewriter
             </Button>
             <Button
               variant="outline"
               onClick={() => handleMove('/proofreader')}
-              className="glow-effect"
             >
               <FileCheck className="mr-2 h-4 w-4" /> Move to Proofreader
             </Button>
             <Button
               variant="outline"
               onClick={() => handleMove('/summarizer')}
-              className="glow-effect"
             >
               <BookText className="mr-2 h-4 w-4" /> Move to Summarizer
             </Button>
             <div className="flex-grow" />
-            <Button variant="default" onClick={handleSaveDraft}>
+            <Button variant="default" onClick={handleSaveDraft} disabled={isExpanding}>
               <Save className="mr-2 h-4 w-4" /> Save Draft
             </Button>
           </div>
