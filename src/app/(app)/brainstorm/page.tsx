@@ -13,6 +13,15 @@ import {useToast} from '@/hooks/use-toast';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
 import {Info, Save, Sparkles} from 'lucide-react';
 import {addDraft} from '@/lib/db';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+
+type Platform = 'Blog' | 'LinkedIn' | 'Instagram';
 
 async function mockBrainstorm(topic: string): Promise<string[]> {
   await new Promise(resolve => setTimeout(resolve, 1000));
@@ -25,6 +34,7 @@ async function mockBrainstorm(topic: string): Promise<string[]> {
 
 export default function BrainstormPage() {
   const [topic, setTopic] = useState('');
+  const [platform, setPlatform] = useState<Platform>('Blog');
   const [ideas, setIdeas] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const isOffline = useOffline();
@@ -53,6 +63,7 @@ export default function BrainstormPage() {
       } else {
         const input: AiBrainstormInput = {
           topic,
+          platform,
         };
         const response = await aiBrainstorm(input);
         result = response.ideas;
@@ -113,6 +124,20 @@ export default function BrainstormPage() {
               disabled={isLoading}
               onKeyDown={e => e.key === 'Enter' && handleBrainstorm()}
             />
+            <Select
+              value={platform}
+              onValueChange={(value: Platform) => setPlatform(value)}
+              disabled={isLoading}
+            >
+              <SelectTrigger className="w-full sm:w-[180px]">
+                <SelectValue placeholder="Select a platform" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Blog">Blog</SelectItem>
+                <SelectItem value="LinkedIn">LinkedIn</SelectItem>
+                <SelectItem value="Instagram">Instagram</SelectItem>
+              </SelectContent>
+            </Select>
             <Button
               onClick={handleBrainstorm}
               disabled={isLoading}
