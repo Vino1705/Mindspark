@@ -1,6 +1,6 @@
 'use client';
 
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {Button} from '@/components/ui/button';
 import {Textarea} from '@/components/ui/textarea';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
@@ -24,6 +24,7 @@ import {useToast} from '@/hooks/use-toast';
 import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
 import {Info, Save, Wand2} from 'lucide-react';
 import {addDraft} from '@/lib/db';
+import {useDraftStore} from '@/lib/draft-store';
 
 type Tone = 'Formal' | 'Casual' | 'Creative' | 'Concise';
 
@@ -47,6 +48,21 @@ export default function RewriterPage() {
   const [isLoading, setIsLoading] = useState(false);
   const isOffline = useOffline();
   const {toast} = useToast();
+  const {consumeDraftContent} = useDraftStore();
+
+  useEffect(() => {
+    const draftContent = consumeDraftContent();
+    if (draftContent) {
+      setRewrittenText(draftContent);
+      // For rewriter, we might want the user to edit the original text instead.
+      // But for now, let's load it into the rewritten text, and let them copy it over.
+      toast({
+        title: 'Draft Loaded',
+        description:
+          'Draft content has been loaded. Copy it to the left to edit the original.',
+      });
+    }
+  }, [consumeDraftContent, toast]);
 
   const handleRewrite = async () => {
     if (!originalText) {

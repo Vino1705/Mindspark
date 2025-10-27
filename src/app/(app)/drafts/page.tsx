@@ -1,6 +1,7 @@
 'use client';
 
 import {useEffect, useState} from 'react';
+import {useRouter} from 'next/navigation';
 import {Button} from '@/components/ui/button';
 import {
   Card,
@@ -12,7 +13,7 @@ import {
 } from '@/components/ui/card';
 import {getDrafts, deleteDraft, type Draft} from '@/lib/db';
 import {format} from 'date-fns';
-import {Trash2, Download} from 'lucide-react';
+import {Trash2, Download, Edit} from 'lucide-react';
 import {useToast} from '@/hooks/use-toast';
 import {Skeleton} from '@/components/ui/skeleton';
 import {
@@ -21,11 +22,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {useDraftStore} from '@/lib/draft-store';
 
 export default function DraftsPage() {
   const [drafts, setDrafts] = useState<Draft[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const {toast} = useToast();
+  const router = useRouter();
+  const {setDraftContent} = useDraftStore();
 
   const fetchDrafts = async () => {
     setIsLoading(true);
@@ -58,6 +62,36 @@ export default function DraftsPage() {
         variant: 'destructive',
         title: 'Error',
         description: 'Failed to delete draft.',
+      });
+    }
+  };
+
+  const handleEdit = (draft: Draft) => {
+    let path = '';
+    if (draft.title.startsWith('Brainstorm:')) {
+      // Brainstorm doesn't have an "edit" flow as it's a generator.
+      // We could show the content in a dialog, but for now we'll do nothing.
+      toast({
+        title: 'Cannot Edit',
+        description: 'Brainstorm drafts cannot be edited.',
+      });
+      return;
+    } else if (draft.title.startsWith('Rewritten:')) {
+      path = '/rewriter';
+    } else if (draft.title.startsWith('Proofread:')) {
+      path = '/proofreader';
+    } else if (draft.title.startsWith('Summary:')) {
+      path = '/summarizer';
+    }
+
+    if (path) {
+      setDraftContent(draft.content);
+      router.push(path);
+    } else {
+      toast({
+        variant: 'destructive',
+        title: 'Unknown Draft Type',
+        description: 'Could not determine the correct tool for this draft.',
       });
     }
   };
@@ -99,6 +133,7 @@ export default function DraftsPage() {
             <CardFooter className="flex justify-end gap-2">
               <Skeleton className="h-10 w-10 rounded-md" />
               <Skeleton className="h-10 w-10 rounded-md" />
+              <Skeleton className="h-10 w-10 rounded-md" />
             </CardFooter>
           </Card>
         ))}
@@ -132,6 +167,14 @@ export default function DraftsPage() {
                 <p className="line-clamp-3 text-sm">{draft.content}</p>
               </CardContent>
               <CardFooter className="flex justify-end gap-2">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => handleEdit(draft)}
+                >
+                  <Edit className="h-4 w-4" />
+                  <span className="sr-only">Edit</span>
+                </Button>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" size="icon" className="glow-effect">
