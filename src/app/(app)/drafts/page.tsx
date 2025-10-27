@@ -69,13 +69,7 @@ export default function DraftsPage() {
   const handleEdit = (draft: Draft) => {
     let path = '';
     if (draft.title.startsWith('Brainstorm:')) {
-      // Brainstorm doesn't have an "edit" flow as it's a generator.
-      // We could show the content in a dialog, but for now we'll do nothing.
-      toast({
-        title: 'Cannot Edit',
-        description: 'Brainstorm drafts cannot be edited.',
-      });
-      return;
+      path = '/rewriter'; // Send brainstorm ideas to the rewriter
     } else if (draft.title.startsWith('Rewritten:')) {
       path = '/rewriter';
     } else if (draft.title.startsWith('Proofread:')) {
