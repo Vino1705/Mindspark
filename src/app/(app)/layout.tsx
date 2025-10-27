@@ -14,6 +14,7 @@ import Link from 'next/link';
 
 const pageTitles: {[key: string]: string} = {
   '/dashboard': 'Dashboard',
+  '/writer': 'Content Writer',
   '/brainstorm': 'Blog Idea Generator',
   '/rewriter': 'Tone Adjuster',
   '/proofreader': 'Proofreader',
