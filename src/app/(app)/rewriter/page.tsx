@@ -53,13 +53,11 @@ export default function RewriterPage() {
   useEffect(() => {
     const draftContent = consumeDraftContent();
     if (draftContent) {
-      setRewrittenText(draftContent);
-      // For rewriter, we might want the user to edit the original text instead.
-      // But for now, let's load it into the rewritten text, and let them copy it over.
+      setOriginalText(draftContent);
       toast({
         title: 'Draft Loaded',
         description:
-          'Draft content has been loaded. Copy it to the left to edit the original.',
+          'Draft content has been loaded into the original text box and is ready to be rewritten.',
       });
     }
   }, [consumeDraftContent, toast]);
