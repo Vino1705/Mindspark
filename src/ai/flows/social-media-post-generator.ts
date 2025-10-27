@@ -14,7 +14,7 @@ import {z} from 'genkit';
 const GenerateSocialMediaPostInputSchema = z.object({
   topic: z.string().describe('The topic or summary to create a post about.'),
   platform: z
-    .enum(['Twitter', 'LinkedIn'])
+    .enum(['Twitter', 'LinkedIn', 'Instagram'])
     .describe('The social media platform to target.'),
 });
 export type GenerateSocialMediaPostInput = z.infer<
@@ -42,6 +42,7 @@ const prompt = ai.definePrompt({
 
 - If 'Twitter', write a concise, impactful tweet (under 280 characters) with 2-3 relevant hashtags.
 - If 'LinkedIn', write a professional, insightful post (2-3 short paragraphs) with a clear hook, valuable content, and relevant business-oriented hashtags.
+- If 'Instagram', write an engaging and slightly more personal caption (1-2 paragraphs) with a strong call-to-action or question, and include 5-7 relevant and popular hashtags.
 
 Topic: {{{topic}}}
 Platform: {{{platform}}}

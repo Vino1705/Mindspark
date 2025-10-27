@@ -23,7 +23,7 @@ import {Save, ThumbsUp} from 'lucide-react';
 import {addDraft} from '@/lib/db';
 import {Textarea} from '@/components/ui/textarea';
 
-type Platform = 'Twitter' | 'LinkedIn';
+type Platform = 'Twitter' | 'LinkedIn' | 'Instagram';
 
 export default function SocialMediaPostGeneratorPage() {
   const [topic, setTopic] = useState('');
@@ -104,6 +104,7 @@ export default function SocialMediaPostGeneratorPage() {
               <SelectContent>
                 <SelectItem value="Twitter">Twitter</SelectItem>
                 <SelectItem value="LinkedIn">LinkedIn</SelectItem>
+                <SelectItem value="Instagram">Instagram</SelectItem>
               </SelectContent>
             </Select>
             <Button
